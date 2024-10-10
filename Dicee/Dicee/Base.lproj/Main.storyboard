@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Dicee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dice1ImageView">
+                                <rect key="frame" x="20" y="79" width="157.33333333333334" height="157.33333333333337"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dice1ImageView" secondAttribute="height" multiplier="1:1" id="dice1AspectRatio"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dice2ImageView">
+                                <rect key="frame" x="215.66666666666663" y="79" width="157.33333333333337" height="157.33333333333337"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dice2ImageView" secondAttribute="height" multiplier="1:1" id="dice2AspectRatio"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rollButton">
+                                <rect key="frame" x="96.666666666666686" y="748" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="buttonWidth"/>
+                                    <constraint firstAttribute="height" constant="50" id="buttonHeight"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Roll Dice" cornerStyle="capsule">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="20" weight="semibold"/>
+                                    <color key="baseBackgroundColor" red="0.0" green="0.47843137254901963" blue="1.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="rollButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b60-mJ-thD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dice1ImageView" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dice1Leading"/>
+                            <constraint firstItem="dice1ImageView" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="dice1Top"/>
+                            <constraint firstItem="dice2ImageView" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="dice2Top"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dice2ImageView" secondAttribute="trailing" constant="20" id="dice2Trailing"/>
+                            <constraint firstItem="dice1ImageView" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="dice1Width"/>
+                            <constraint firstItem="dice2ImageView" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="dice2Width"/>
+                            <constraint firstItem="dice1ImageView" firstAttribute="width" secondItem="dice2ImageView" secondAttribute="width" id="diceEqualWidths"/>
+                            <constraint firstItem="dice2ImageView" firstAttribute="leading" secondItem="dice1ImageView" secondAttribute="trailing" constant="38" id="diceSpacing"/>
+                            <constraint firstItem="rollButton" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="buttonCenterX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rollButton" secondAttribute="bottom" constant="20" id="buttonBottom"/>
+                            <constraint firstItem="rollButton" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="buttonLeading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rollButton" secondAttribute="trailing" constant="20" id="buttonTrailing"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="diceImageView1" destination="dice1ImageView" id="bkV-WH-jQl"/>
+                        <outlet property="diceImageView2" destination="dice2ImageView" id="7XA-25-uVq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="123" y="4"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
