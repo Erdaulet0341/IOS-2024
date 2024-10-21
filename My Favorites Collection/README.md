@@ -19,7 +19,7 @@ Main story board:
 
 Screenshot of Appication:
 
-<img width="357" alt="Снимок экрана 2024-10-21 в 19 40 49" src="https://github.com/user-attachments/assets/1da25f2f-9407-4a46-b5e9-8b1da5269303">
+<img width="665" alt="Снимок экрана 2024-10-21 в 19 39 54" src="https://github.com/user-attachments/assets/30995362-3b7e-4e9d-9581-2673216e51a2">
 
 
 ## Video Demonstration
