@@ -15,11 +15,13 @@ This theme allows for visually appealing content with the movie posters while al
 ## Screenshots
 Main story board:
 
-<img width="665" alt="Снимок экрана 2024-10-21 в 19 37 31" src="https://github.com/user-attachments/assets/f91f7081-34a3-4f6c-9f9d-3316f76b08c7">
+<img width="665" alt="Снимок экрана 2024-10-21 в 19 39 54" src="https://github.com/user-attachments/assets/60aec6bf-9728-482f-abd6-f1a006db561e">
+
 
 Screenshot of Appication:
 
-<img width="665" alt="Снимок экрана 2024-10-21 в 19 39 54" src="https://github.com/user-attachments/assets/30995362-3b7e-4e9d-9581-2673216e51a2">
+<img width="357" alt="Снимок экрана 2024-10-21 в 19 40 49" src="https://github.com/user-attachments/assets/eff5d5a3-c8bb-4ff8-9127-4d79e64c2630">
+
 
 
 ## Video Demonstration
