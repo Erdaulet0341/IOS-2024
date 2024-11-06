@@ -13,7 +13,7 @@ class MovieCell: UITableViewCell {
         posterImageView.clipsToBounds = true
     }
     
-    func configure(with movie: Movie) {
+    func configure(_ movie: Movie) {
         posterImageView.image = movie.posterImage
         titleLabel.text = movie.title
         yearLabel.text = movie.year
