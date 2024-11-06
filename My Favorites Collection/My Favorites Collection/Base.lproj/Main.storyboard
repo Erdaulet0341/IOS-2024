@@ -72,6 +72,7 @@
                                             <outlet property="posterImageView" destination="pqr-78-stu" id="vwx-78-yza"/>
                                             <outlet property="titleLabel" destination="hij-34-klm" id="bcd-90-efg"/>
                                             <outlet property="yearLabel" destination="nop-56-qrs" id="hij-12-klm"/>
+                                            <segue destination="KXX-j5-XSg" kind="presentation" identifier="goToDetail" id="q1X-H9-g4R"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -92,7 +93,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
+            <point key="canvasLocation" x="-343" y="29"/>
+        </scene>
+        <!--Detail View-->
+        <scene sceneID="I82-gL-Ert">
+            <objects>
+                <viewController id="KXX-j5-XSg" customClass="DetailView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7NW-2U-ijd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LC4-DQ-RJv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eth-QX-oE5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728" y="29"/>
         </scene>
     </scenes>
     <resources>

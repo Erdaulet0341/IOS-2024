@@ -39,19 +39,7 @@ class ViewController: UIViewController {
 
     // MARK: - Action Methods
     @IBAction func eggButtonTapped(_ sender: UIButton) {
-        resetTimer() // Reset the timer before starting a new one
-        animateButtonTap(sender) // Animate the button tap for visual feedback
         
-        let hardness = sender.tag // Get the hardness level from the button's tag
-        totalTime = eggTimes[hardness] ?? 0 // Set the total time based on hardness
-        secondsRemaining = totalTime // Initialize remaining time
-        
-        updateTimerLabel() // Update the timer label immediately
-        
-        // Start a new timer that fires every second
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateTimer()
-        }
     }
     
     // MARK: - Helper Methods

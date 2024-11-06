@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Initialize dice images when the view loads
         diceImageView1.image = UIImage(named: diceImages[0])
-        diceImageView2.image = UIImage(named: diceImages[5])  // Changed from [6] to [5] as array indices go from 0 to 5
+        diceImageView2.image = UIImage(named: diceImages[5])
     }
 
     // Action method for the roll button
