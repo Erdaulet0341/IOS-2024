@@ -19,10 +19,21 @@ class MovieTableViewController: UIViewController {
         guard let destVC = segue.destination as? DetailView else {
             return
         }
-//        destVC.configure(with: selectedMovie)
+        destVC.configure(with: selectedMovie)
     }
 }
 
+extension MovieTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedMovie = movies[indexPath.row]
+        performSegue(withIdentifier: "goToDetail", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
 
 extension MovieTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,17 +45,5 @@ extension MovieTableViewController: UITableViewDataSource {
         let currentModel = movies[indexPath.row]
         cell.configure(currentModel)
         return cell
-    }
-    
-}
-
-extension MovieTableViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedMovie = movies[indexPath.row]
-        performSegue(withIdentifier: "goToDetail", sender: nil)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
