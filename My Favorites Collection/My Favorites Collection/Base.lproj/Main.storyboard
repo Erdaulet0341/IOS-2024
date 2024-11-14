@@ -202,7 +202,7 @@
                         <outlet property="dismissButton" destination="btn-03-close" id="out-35-close"/>
                         <outlet property="genreLabel" destination="lbl-13-genre" id="out-36-genre"/>
                         <outlet property="posterImageView" destination="img-06-poster" id="out-37-poster"/>
-                        <outlet property="titleLabel" destination="lbl-10-title" id="out-38-title"/>
+                        <outlet property="titleLabel" destination="lbl-10-title" id="cm3-ad-XZw"/>
                         <outlet property="yearLabel" destination="lbl-12-year" id="out-39-year"/>
                     </connections>
                 </viewController>
