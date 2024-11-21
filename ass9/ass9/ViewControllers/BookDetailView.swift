@@ -37,10 +37,3 @@ class BookDetailView: UIViewController {
         dismiss(animated: true)
     }
 }
-//
-//  BookDetailView2.swift
-//  ass9
-//
-//  Created by Yerdaulet on 14.11.2024.
-//
-
