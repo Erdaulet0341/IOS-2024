@@ -16,16 +16,13 @@ class ViewController: UIViewController {
     }
     
     private func setupUI() {
-        // Configure hero image
         heroImageView.layer.cornerRadius = 75
         heroImageView.clipsToBounds = true
         heroImageView.contentMode = .scaleAspectFill
         heroImageView.backgroundColor = .systemGray5
         
-        // Configure name label
         nameLabel.text = "Roll to get a hero!"
         
-        // Setup stats and bio views
         setupStatsLabels()
         setupBioLabels()
     }
@@ -120,10 +117,8 @@ class ViewController: UIViewController {
     }
     
     private func updateUI(with hero: Hero) {
-        // Update name
         nameLabel.text = hero.name
         
-        // Update stats
         let stats = [
             hero.powerstats.intelligence,
             hero.powerstats.strength,
@@ -138,7 +133,6 @@ class ViewController: UIViewController {
             label.text = "\(statName): \(stat)"
         }
         
-        // Update bio
         let bioInfo = [
             hero.biography.fullName,
             hero.biography.alterEgos,
