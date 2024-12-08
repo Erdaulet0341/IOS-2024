@@ -16,8 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xYz-12-abc">
-                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xYz-12-abc">
+                                <rect key="frame" x="0.0" y="48" width="414" height="198"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="120" id="def-34-ghi" customClass="MovieCell" customModule="My_Favorites_Collection" customModuleProvider="target">
@@ -79,12 +80,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="xYz-12-abc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fgh-12-ijk"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xYz-12-abc" secondAttribute="trailing" id="nop-56-rst"/>
-                            <constraint firstItem="xYz-12-abc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tuv-78-wyz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xYz-12-abc" secondAttribute="bottom" id="zab-90-cde"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="xYz-12-abc" id="PvV-1F-G7Z"/>
@@ -93,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210" y="29"/>
+            <point key="canvasLocation" x="-210.1449275362319" y="28.794642857142854"/>
         </scene>
         <!--Detail View-->
         <scene sceneID="I82-gL-Ert">

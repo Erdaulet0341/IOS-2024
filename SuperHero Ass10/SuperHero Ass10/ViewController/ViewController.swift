@@ -42,12 +42,6 @@ class ViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         statsContentView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: statsContentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: statsContentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: statsContentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: statsContentView.bottomAnchor)
-        ])
     }
     
     private func setupBioLabels() {
@@ -66,12 +60,6 @@ class ViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         bioContentView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: bioContentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: bioContentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: bioContentView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bioContentView.bottomAnchor)
-        ])
     }
     
     @IBAction func heroRollDidTap(_ sender: UIButton) {
@@ -151,7 +139,7 @@ class ViewController: UIViewController {
     private func showError(message: String) {
         nameLabel.text = "Error: \(message)\nTry rolling again!"
         heroImageView.image = nil
-        statsLabels.forEach { $0.text = $0.text?.components(separatedBy: ":").first.map { "\($0): -" } }
-        bioLabels.forEach { $0.text = $0.text?.components(separatedBy: ":").first.map { "\($0): -" } }
+        statsLabels.forEach { label in label.text = label.text?.components(separatedBy: ":").first.map { label_name in "\(label_name): -" } }
+        bioLabels.forEach { label in  label.text = label.text?.components(separatedBy: ":").first.map { label_name in "\(label_name): -" } }
     }
 }

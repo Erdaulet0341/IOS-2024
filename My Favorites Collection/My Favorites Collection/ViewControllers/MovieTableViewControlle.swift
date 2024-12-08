@@ -11,6 +11,8 @@ class MovieTableViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.showsHorizontalScrollIndicator = true
+        tableView.showsVerticalScrollIndicator = false
         
         loadMovies()
     }

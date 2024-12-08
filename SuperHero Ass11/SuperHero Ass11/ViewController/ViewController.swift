@@ -85,8 +85,8 @@ class ViewController: UIViewController {
         do {
             let hero = try JSONDecoder().decode(Hero.self, from: data)
             
-            DispatchQueue.main.async {
-                self.updateUI(with: hero)
+            DispatchQueue.main.async { [weak self] in
+                self?.updateUI(with: hero)
             }
             
             if let imageUrl = URL(string: hero.images.md) {
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
     }
     
     private func showError(message: String) {
-        nameLabel.text = "Error: \(message)\nTry rolling again!"
+        nameLabel.text = "Error: Try rolling again! (\(message))"
         heroImageView.image = nil
         statsLabels.forEach { $0.text = $0.text?.components(separatedBy: ":").first.map { "\($0): -" } }
         bioLabels.forEach { $0.text = $0.text?.components(separatedBy: ":").first.map { "\($0): -" } }

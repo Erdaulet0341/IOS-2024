@@ -36,10 +36,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statsView">
-                                                <rect key="frame" x="16" y="256" width="361" height="159.66666666666663"/>
+                                                <rect key="frame" x="16" y="256" width="361" height="179.66666666666663"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="statsStack">
-                                                        <rect key="frame" x="8" y="8" width="345" height="143.66666666666666"/>
+                                                        <rect key="frame" x="8" y="8" width="345" height="163.66666666666666"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POWERSTATS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="statsTitle">
                                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="15.666666666666666"/>
@@ -48,10 +48,10 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statsContent">
-                                                                <rect key="frame" x="0.0" y="23.666666666666686" width="345" height="120"/>
+                                                                <rect key="frame" x="0.0" y="23.666666666666686" width="345" height="140"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="120" id="stats-h"/>
+                                                                    <constraint firstAttribute="height" constant="140" id="stats-h"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -66,10 +66,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bioView">
-                                                <rect key="frame" x="16" y="431.66666666666669" width="361" height="159.66666666666669"/>
+                                                <rect key="frame" x="16" y="451.66666666666669" width="361" height="179.66666666666669"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bioStack">
-                                                        <rect key="frame" x="8" y="8" width="345" height="143.66666666666666"/>
+                                                        <rect key="frame" x="8" y="8" width="345" height="163.66666666666666"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BIOGRAPHY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bioTitle">
                                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="15.666666666666666"/>
@@ -78,10 +78,10 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bioContent">
-                                                                <rect key="frame" x="0.0" y="23.666666666666629" width="345" height="120"/>
+                                                                <rect key="frame" x="0.0" y="23.666666666666629" width="345" height="140"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="120" id="bio-h"/>
+                                                                    <constraint firstAttribute="height" constant="140" id="bio-h"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
