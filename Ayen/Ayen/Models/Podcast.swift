@@ -1,9 +1,4 @@
-//
-//  PoscastCELLCollectionViewCell.swift
-//  Ayen
-//
-//  Created by Yerdaulet on 07.12.2024.
-//
+import UIKit
 
 struct Podcast {
     let image: UIImage
@@ -18,11 +13,3 @@ var listPodcast:[Podcast] = [
     Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast5"),
 
 ]
-
-import UIKit
-
-class PoscastCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var image: UIImageView!
-}
