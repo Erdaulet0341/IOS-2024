@@ -21,20 +21,10 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 4, height: 4)
         layer.shadowRadius = 4
-        
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        addGestureRecognizer(tapGesture)
     }
     
     func configure(with model: Album) {
         label.text = model.label
         image.image = model.image
-    }
-    
-    @objc private func handleTap() {
-        if let label = label.text {
-            onTap?(label) 
-        }
     }
 }

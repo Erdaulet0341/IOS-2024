@@ -1,8 +1,9 @@
 import UIKit
 
-class FavoriteTableViewController: UIViewController {
+class GenreTableViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
-    private var selectedMusic: Music?
+    private var selectedGenre: Genre?
     
     @IBOutlet weak var backButton: UIImageView!
     
@@ -17,7 +18,7 @@ class FavoriteTableViewController: UIViewController {
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
-        loadMusics()
+        loadGenre()
         
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
@@ -31,34 +32,47 @@ class FavoriteTableViewController: UIViewController {
     
 }
 
-extension FavoriteTableViewController: UITableViewDelegate {
+extension GenreTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 390
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let spacerView = UIView()
+        spacerView.backgroundColor = .clear // Match table's background color
+        return spacerView
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedMusic = musics[indexPath.row]
-        print(selectedMusic?.title)
-        performSegue(withIdentifier: "playMusic", sender: self)
+        selectedGenre = listGenre[indexPath.section]
+        performSegue(withIdentifier: "showAllMusicGenre", sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "playMusic" {
-                if let playMusicVC = segue.destination as? PlayMusic {
-                    playMusicVC.currentMusic = selectedMusic
-                }
+        if segue.identifier == "showAllMusicGenre" {
+            if let destinationVC = segue.destination as? ListTableViewController {
+                destinationVC.listLabelText = selectedGenre?.name
             }
         }
+    }
 }
 
-extension FavoriteTableViewController: UITableViewDataSource {
+extension GenreTableViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return listGenre.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musics.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell", for: indexPath) as! MusicCell
-        let currentModel = musics[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GenreCell", for: indexPath) as! GenreCell
+        let currentModel = listGenre[indexPath.section]
         cell.configure(currentModel)
         return cell
     }

@@ -1,8 +1,9 @@
 import UIKit
 
-class FavoriteTableViewController: UIViewController {
+class ArtistTableViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
-    private var selectedMusic: Music?
+    private var selectedArtist: Artist?
     
     @IBOutlet weak var backButton: UIImageView!
     
@@ -17,7 +18,7 @@ class FavoriteTableViewController: UIViewController {
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
-        loadMusics()
+        loadArtist()
         
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
@@ -31,34 +32,47 @@ class FavoriteTableViewController: UIViewController {
     
 }
 
-extension FavoriteTableViewController: UITableViewDelegate {
+extension ArtistTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedMusic = musics[indexPath.row]
-        print(selectedMusic?.title)
-        performSegue(withIdentifier: "playMusic", sender: self)
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 15
     }
-    
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let spacerView = UIView()
+        spacerView.backgroundColor = .clear
+        return spacerView
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedArtist = listArtist[indexPath.section]
+        performSegue(withIdentifier: "showAllMusicArtist", sender: self)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "playMusic" {
-                if let playMusicVC = segue.destination as? PlayMusic {
-                    playMusicVC.currentMusic = selectedMusic
-                }
+        if segue.identifier == "showAllMusicArtist" {
+            if let destinationVC = segue.destination as? ListTableViewController {
+                destinationVC.listLabelText = selectedArtist?.name
             }
         }
+    }
 }
 
-extension FavoriteTableViewController: UITableViewDataSource {
+extension ArtistTableViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return listArtist.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musics.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell", for: indexPath) as! MusicCell
-        let currentModel = musics[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as! ArtistCell
+        let currentModel = listArtist[indexPath.section]
         cell.configure(currentModel)
         return cell
     }

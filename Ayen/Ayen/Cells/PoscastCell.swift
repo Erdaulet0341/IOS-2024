@@ -28,19 +28,10 @@ class PoscastCollectionViewCell: UICollectionViewCell {
         image.layer.borderColor = UIColor(named: "FF6B00").cgColor
         image.layer.borderWidth = 1.5
         image.clipsToBounds = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        addGestureRecognizer(tapGesture)
     }
     
     func configure(with model: Podcast) {
         label.text = model.label
         image.image = model.image
-    }
-    
-    @objc private func handleTap() {
-        if let label = label.text {
-            onTap?(label) 
-        }
     }
 }

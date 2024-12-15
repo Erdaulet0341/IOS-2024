@@ -1,23 +1,18 @@
 import UIKit
 
-class FavoriteTableViewController: UIViewController {
+class AllCountry: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
-    private var selectedMusic: Music?
+    private var selectedCountry: Country?
     
     @IBOutlet weak var backButton: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "Backgroud")
-        backgroundImage.contentMode = .scaleAspectFill
-        view.insertSubview(backgroundImage, at: 0)
-        
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
-        loadMusics()
         
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
@@ -26,39 +21,48 @@ class FavoriteTableViewController: UIViewController {
     
     @objc func backButtonTapped() {
         print("Clicked")
-        tabBarController?.selectedIndex = 0
+        dismiss(animated: true)
     }
     
 }
 
-extension FavoriteTableViewController: UITableViewDelegate {
+extension AllCountry: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 260
     }
-    
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let spacerView = UIView()
+        spacerView.backgroundColor = .clear
+        return spacerView
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedMusic = musics[indexPath.row]
-        print(selectedMusic?.title)
-        performSegue(withIdentifier: "playMusic", sender: self)
+        selectedCountry = listCountry[indexPath.section]
+        performSegue(withIdentifier: "showAllMusicCountry", sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "playMusic" {
-                if let playMusicVC = segue.destination as? PlayMusic {
-                    playMusicVC.currentMusic = selectedMusic
-                }
+        if segue.identifier == "showAllMusicCountry" {
+            if let destinationVC = segue.destination as? ListTableViewController {
+                destinationVC.listLabelText = selectedCountry?.label
             }
         }
+    }
 }
 
-extension FavoriteTableViewController: UITableViewDataSource {
+extension AllCountry: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return listCountry.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return musics.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell", for: indexPath) as! MusicCell
-        let currentModel = musics[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CountryAllCell", for: indexPath) as! CountryAllCell
+        let currentModel = listCountry[indexPath.section]
         cell.configure(currentModel)
         return cell
     }

@@ -2,7 +2,6 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // MARK: - IBOutlets
     @IBOutlet weak var imageRight: UIImageView!
     @IBOutlet weak var podcastViewAll: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -12,13 +11,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var albumViewAll: UILabel!
     @IBOutlet weak var countryViewAll: UILabel!
     
-    // MARK: - Properties
     private let cornerRadius: CGFloat = 30
     private let searchBarShadowOffset = CGSize(width: 4, height: 4)
     private let searchBarShadowOpacity: Float = 0.4
     private let searchBarShadowRadius: CGFloat = 4
-    
-    // MARK: - Lifecycle Methods
+    private var selectedAlbum: Album?
+    private var selectedPodcast: Podcast?
+    private var selectedCountry: Country?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -26,28 +26,24 @@ class HomeViewController: UIViewController {
         setupCollectionView()
     }
     
-    // MARK: - Setup Methods
     private func setupUI() {
-        // Round image corner
         imageRight.layer.cornerRadius = cornerRadius
         
-        // Set background image
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Backgroud")
         backgroundImage.contentMode = .scaleAspectFill
         view.insertSubview(backgroundImage, at: 0)
         
-        // Customize search bar
         searchBar.layer.cornerRadius = 20
         searchBar.searchTextField.layer.cornerRadius = 10
         searchBar.searchTextField.layer.masksToBounds = true
         searchBar.layer.applyShadow(color: UIColor.black, offset: searchBarShadowOffset, opacity: searchBarShadowOpacity, radius: searchBarShadowRadius)
-
     }
     
     private func setupGestures() {
         podcastViewAll.addTapGesture(target: self, action: #selector(podcastLabelTapped))
         albumViewAll.addTapGesture(target: self, action: #selector(albumLabelTapped))
+        countryViewAll.addTapGesture(target: self, action: #selector(countryLabelTapped))
     }
     
     private func setupCollectionView() {
@@ -61,17 +57,22 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    // MARK: - Actions
     @objc private func podcastLabelTapped() {
         print("Podcast label tapped!")
+        performSegue(withIdentifier: "showAllPodcast", sender: nil)
     }
     
     @objc private func albumLabelTapped() {
         print("Album label tapped!")
+        performSegue(withIdentifier: "showAllAlbum", sender: nil)
+    }
+    
+    @objc private func countryLabelTapped() {
+        print("Country label tapped!")
+        performSegue(withIdentifier: "showAllCountry", sender: nil)
     }
 }
 
-// MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
@@ -99,12 +100,10 @@ extension HomeViewController: UICollectionViewDataSource {
         }
     }
     
-    // MARK: - Cell Configuration
     private func configurePodcastCell(for indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewPodcast.dequeueReusableCell(withReuseIdentifier: "podcastcell", for: indexPath) as! PoscastCollectionViewCell
         let model = listPodcast[indexPath.row]
         cell.configure(with: model)
-        cell.onTap = { label in print("Podcast cell with label '\(label)' tapped") }
         return cell
     }
     
@@ -112,7 +111,6 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionViewAlbum.dequeueReusableCell(withReuseIdentifier: "albumcell", for: indexPath) as! AlbumCollectionViewCell
         let model = listAlbum[indexPath.row]
         cell.configure(with: model)
-        cell.onTap = { label in print("Album cell with label '\(label)' tapped") }
         return cell
     }
     
@@ -124,18 +122,51 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case collectionViewPodcast:
             print("Selected Podcast: \(listPodcast[indexPath.row].label)")
+            let selectedPodcast = listPodcast[indexPath.row]
+            self.selectedPodcast = selectedPodcast
+            performSegue(withIdentifier: "showPodcastDetails", sender: self)
         case collectionViewAlbum:
             print("Selected Album: \(listAlbum[indexPath.row].label)")
+            let selectedAlbum = listAlbum[indexPath.row]
+            self.selectedAlbum = selectedAlbum
+            self.selectedCountry = nil
+            performSegue(withIdentifier: "showAllMusic", sender: self)
+            
         case collectionViewCountry:
             print("Selected Country: \(indexPath.row)")
+            let selectedCountry = listCountry[indexPath.row]
+            self.selectedCountry = selectedCountry
+            self.selectedAlbum = nil
+            performSegue(withIdentifier: "showAllMusic", sender: self)
         default:
             break
+        }
+    }
+}
+
+extension HomeViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAllMusic" {
+            if let destinationVC = segue.destination as? ListTableViewController {
+                if let selectedAlbum = self.selectedAlbum {
+                    destinationVC.listLabelText = selectedAlbum.label
+                }
+                if let selectedCountry = self.selectedCountry {
+                    destinationVC.listLabelText = selectedCountry.label
+                }
+            }
+        }
+        if segue.identifier == "showPodcastDetails"{
+            if let destinationVC = segue.destination as? PodcastDetail {
+                if let selectedPodcast = self.selectedPodcast {
+                    destinationVC.nameLabelText = selectedPodcast.label
+                }
+            }
         }
     }
 }
