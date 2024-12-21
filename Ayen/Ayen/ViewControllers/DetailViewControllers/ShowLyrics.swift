@@ -104,7 +104,7 @@ class ShowLyrics: UIViewController {
 
     private func updateLikeImage() {
         let imageName = likeStatus ? "heart.fill" : "heart"
-        let image = UIImage(systemName: imageName)?.withTintColor(likeStatus ? .red : .black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: imageName)?.withTintColor(likeStatus ? .systemGreen : .black, renderingMode: .alwaysOriginal)
         putLike.image = image
     }
 }

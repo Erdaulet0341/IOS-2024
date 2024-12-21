@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
     func loadPodcast() {
         showProgressBar()
         
-        ApiClient.shared.getAllPodcasts { result in
+        ApiClient.shared.getAllPodcasts(limit: 4, offset: 0) { result in
             DispatchQueue.main.async {
                 self.hideProgressBar()
                 
@@ -65,7 +65,7 @@ class HomeViewController: UIViewController {
     func loadAlbum() {
         showProgressBar()
 
-        ApiClient.shared.getAllAlbums { result in
+        ApiClient.shared.getAllAlbums(limit: 4, offset: 0) { result in
             DispatchQueue.main.async {
                 self.hideProgressBar()
                 
@@ -83,7 +83,7 @@ class HomeViewController: UIViewController {
     func loadCountry() {
         showProgressBar()
 
-        ApiClient.shared.getAllCountries { result in
+        ApiClient.shared.getAllCountries(limit: 4, offset: 0) { result in
             DispatchQueue.main.async {
                 self.hideProgressBar()
                 

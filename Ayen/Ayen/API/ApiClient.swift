@@ -4,7 +4,7 @@ class ApiClient {
     static let shared = ApiClient()
     private init() {}
 
-    private let baseUrl = "https://0235-147-30-44-191.ngrok-free.app/"
+    private let baseUrl = "https://f375-213-211-101-84.ngrok-free.app/"
 
     private func request<T: Decodable>(
         endpoint: String,
@@ -27,8 +27,12 @@ class ApiClient {
     }
 
     // Fetch all countries
-    func getAllCountries(completion: @escaping (Result<[Country], Error>) -> Void) {
-        request(endpoint: "countries/", completion: completion)
+    func getAllCountries(limit: Int? = nil, offset: Int? = nil, completion: @escaping (Result<[Country], Error>) -> Void) {
+        var endpoint = "countries/"
+        if let limit = limit, let offset = offset {
+            endpoint += "?limit=\(limit)&offset=\(offset)"
+        }
+        request(endpoint: endpoint, completion: completion)
     }
 
     // Fetch all artists
@@ -37,8 +41,12 @@ class ApiClient {
     }
 
     // Fetch all albums
-    func getAllAlbums(completion: @escaping (Result<[Album], Error>) -> Void) {
-        request(endpoint: "albums/", completion: completion)
+    func getAllAlbums(limit: Int? = nil, offset: Int? = nil, completion: @escaping (Result<[Album], Error>) -> Void) {
+        var endpoint = "albums/"
+        if let limit = limit, let offset = offset {
+            endpoint += "?limit=\(limit)&offset=\(offset)"
+        }
+        request(endpoint: endpoint, completion: completion)
     }
 
     // Fetch all tracks
@@ -47,8 +55,12 @@ class ApiClient {
     }
 
     // Fetch all podcasts
-    func getAllPodcasts(completion: @escaping (Result<[Podcast], Error>) -> Void) {
-        request(endpoint: "podcasts/", completion: completion)
+    func getAllPodcasts(limit: Int? = nil, offset: Int? = nil, completion: @escaping (Result<[Podcast], Error>) -> Void) {
+        var endpoint = "podcasts/"
+        if let limit = limit, let offset = offset {
+            endpoint += "?limit=\(limit)&offset=\(offset)"
+        }
+        request(endpoint: endpoint, completion: completion)
     }
 
     // Additional Endpoint Methods
