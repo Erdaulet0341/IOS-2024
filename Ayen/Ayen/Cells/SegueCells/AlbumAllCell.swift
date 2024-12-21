@@ -12,6 +12,8 @@ class AlbumAllCell: UITableViewCell {
     }
     
     func configure(_ album: Album) {
-        _image.image = album.image
+        if let imageUrlString = album.cover_image, let imageUrl = URL(string: imageUrlString) {
+            _image.kf.setImage(with: imageUrl)
+        }
     }
 }

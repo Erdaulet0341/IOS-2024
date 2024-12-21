@@ -24,7 +24,9 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with model: Album) {
-        label.text = model.label
-        image.image = model.image
+        label.text = model.title
+        if let imageUrlString = model.cover_image, let imageUrl = URL(string: imageUrlString) {
+            image.kf.setImage(with: imageUrl)
+        }
     }
 }

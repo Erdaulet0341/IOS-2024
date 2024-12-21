@@ -2,6 +2,9 @@ import UIKit
 
 class AllCountry: UIViewController {
     
+    var listCountry:[Country] = []
+    var progessBar: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     private var selectedCountry: Country?
     
@@ -10,6 +13,11 @@ class AllCountry: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        progessBar = UIActivityIndicatorView(style: .large)
+        progessBar.center = view.center
+        progessBar.hidesWhenStopped = true
+        view.addSubview(progessBar)
+        
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -17,11 +25,32 @@ class AllCountry: UIViewController {
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
         backButton.addGestureRecognizer(tapGesture)
+        
+        loadCountry()
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         dismiss(animated: true)
+    }
+    
+    func loadCountry() {
+        progessBar.startAnimating()
+        progessBar.isHidden = false
+        
+        ApiClient.shared.getAllCountries { result in
+            DispatchQueue.main.async {
+                self.progessBar.stopAnimating()
+                self.progessBar.isHidden = true
+                
+                switch result {
+                case .success(let countries):
+                    self.listCountry = countries
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching genres: \(error)")
+                }
+            }
+        }
     }
     
 }
@@ -45,7 +74,9 @@ extension AllCountry: UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAllMusicCountry" {
             if let destinationVC = segue.destination as? ListTableViewController {
-                destinationVC.listLabelText = selectedCountry?.label
+                destinationVC.listLabelText = selectedCountry?.name
+                destinationVC.listType = "country"
+                destinationVC.listTypeId = selectedCountry?.id
             }
         }
     }

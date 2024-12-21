@@ -12,6 +12,8 @@ class PodcastAllCell: UITableViewCell {
     }
     
     func configure(_ podcast: Podcast) {
-        _image.image = podcast.image
+        if let imageUrlString = podcast.cover_image, let imageUrl = URL(string: imageUrlString) {
+            _image.kf.setImage(with: imageUrl)
+        }
     }
 }

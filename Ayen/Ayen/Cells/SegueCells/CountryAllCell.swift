@@ -12,6 +12,8 @@ class CountryAllCell: UITableViewCell {
     }
     
     func configure(_ country: Country) {
-        _image.image = country.image
+        if let imageUrlString = country.image, let imageUrl = URL(string: imageUrlString) {
+            _image.kf.setImage(with: imageUrl)
+        }
     }
 }

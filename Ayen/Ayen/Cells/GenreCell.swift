@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 class GenreCell: UITableViewCell {
     
@@ -17,7 +18,10 @@ class GenreCell: UITableViewCell {
     }
     
     func configure(_ genre: Genre) {
-        _image.image = genre.image
+        if let imageUrlString = genre.image, let imageUrl = URL(string: imageUrlString) {
+            _image.kf.setImage(with: imageUrl)
+        }
+        
         name.text = genre.name
     }
 }

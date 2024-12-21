@@ -17,9 +17,11 @@ class ArtistCell: UITableViewCell {
         _image.clipsToBounds = true
     }
     
-    func configure(_ genre: Artist) {
-        _image.image = genre.image
-        name.text = genre.name
-        country.text = genre.country
+    func configure(_ artist: Artist) {
+        if let imageUrlString = artist.image, let imageUrl = URL(string: imageUrlString) {
+            _image.kf.setImage(with: imageUrl)
+        }
+        name.text = artist.name
+        country.text = artist.country.name
     }
 }

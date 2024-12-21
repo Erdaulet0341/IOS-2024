@@ -16,6 +16,8 @@ class CountryCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with model: Country) {
-        image.image = model.image
+        if let imageUrlString = model.image, let imageUrl = URL(string: imageUrlString) {
+            image.kf.setImage(with: imageUrl)
+        }
     }
 }

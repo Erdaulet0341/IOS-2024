@@ -1,6 +1,6 @@
 import UIKit
 
-class MusicCell: UITableViewCell {
+class TrackCell: UITableViewCell {
     
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -13,9 +13,11 @@ class MusicCell: UITableViewCell {
         posterImageView.clipsToBounds = true
     }
     
-    func configure(_ music: Music) {
-        posterImageView.image = music.posterImage
-        titleLabel.text = music.title
-        genreLabel.text = music.genre
+    func configure(_ track: Track) {
+        if let imageUrlString = track.cover_image, let imageUrl = URL(string: imageUrlString) {
+            posterImageView.kf.setImage(with: imageUrl)
+        }        
+        titleLabel.text = track.title
+        genreLabel.text = track.artist.name
     }
 }

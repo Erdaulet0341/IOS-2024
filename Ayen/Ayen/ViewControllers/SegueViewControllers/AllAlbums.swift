@@ -2,6 +2,9 @@ import UIKit
 
 class AllAlbums: UIViewController {
     
+    var listAlbum:[Album] = []
+    var progessBar: UIActivityIndicatorView!
+
     @IBOutlet weak var tableView: UITableView!
     private var selectedAlbum: Album?
     
@@ -10,6 +13,12 @@ class AllAlbums: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        progessBar = UIActivityIndicatorView(style: .large)
+        progessBar.center = view.center
+        progessBar.hidesWhenStopped = true
+        view.addSubview(progessBar)
+        
+        
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -17,18 +26,38 @@ class AllAlbums: UIViewController {
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
         backButton.addGestureRecognizer(tapGesture)
+        
+        loadAlbum()
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         dismiss(animated: true)
     }
     
+    func loadAlbum() {
+        progessBar.startAnimating()
+        progessBar.isHidden = false
+        
+        ApiClient.shared.getAllAlbums { result in
+            DispatchQueue.main.async {
+                self.progessBar.stopAnimating()
+                self.progessBar.isHidden = true
+                
+                switch result {
+                case .success(let albums):
+                    self.listAlbum = albums
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching genres: \(error)")
+                }
+            }
+        }
+    }
 }
 
 extension AllAlbums: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 320
+        return 305
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -45,7 +74,9 @@ extension AllAlbums: UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "getListMusic" {
             if let destinationVC = segue.destination as? ListTableViewController {
-                destinationVC.listLabelText = selectedAlbum?.label
+                destinationVC.listLabelText = selectedAlbum?.title
+                destinationVC.listType = "album"
+                destinationVC.listTypeId = selectedAlbum?.id
             }
         }
     }

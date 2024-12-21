@@ -1,14 +1,22 @@
 import UIKit
 
 class GenreTableViewController: UIViewController {
+    var listGenre:[Genre] = []
+    var progessBar: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
     private var selectedGenre: Genre?
+    
     
     @IBOutlet weak var backButton: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        progessBar = UIActivityIndicatorView(style: .large)
+        progessBar.center = view.center
+        progessBar.hidesWhenStopped = true
+        view.addSubview(progessBar)
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Backgroud")
@@ -26,15 +34,33 @@ class GenreTableViewController: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         tabBarController?.selectedIndex = 0
     }
     
+    func loadGenre() {
+        progessBar.startAnimating()
+        progessBar.isHidden = false
+        
+        ApiClient.shared.getAllGenres { result in
+            DispatchQueue.main.async {
+                self.progessBar.stopAnimating()
+                self.progessBar.isHidden = true  
+                
+                switch result {
+                case .success(let genres):
+                    self.listGenre = genres
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching genres: \(error)")
+                }
+            }
+        }
+    }
 }
 
 extension GenreTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 390
+        return 370
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -56,6 +82,8 @@ extension GenreTableViewController: UITableViewDelegate {
         if segue.identifier == "showAllMusicGenre" {
             if let destinationVC = segue.destination as? ListTableViewController {
                 destinationVC.listLabelText = selectedGenre?.name
+                destinationVC.listType = "genre"
+                destinationVC.listTypeId = selectedGenre?.id
             }
         }
     }

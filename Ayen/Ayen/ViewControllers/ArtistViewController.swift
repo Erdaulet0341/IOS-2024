@@ -2,6 +2,9 @@ import UIKit
 
 class ArtistTableViewController: UIViewController {
     
+    var listArtist:[Artist] = []
+    var progessBar: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     private var selectedArtist: Artist?
     
@@ -9,6 +12,11 @@ class ArtistTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        progessBar = UIActivityIndicatorView(style: .large)
+        progessBar.center = view.center
+        progessBar.hidesWhenStopped = true
+        view.addSubview(progessBar)
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Backgroud")
@@ -26,8 +34,27 @@ class ArtistTableViewController: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         tabBarController?.selectedIndex = 0
+    }
+    
+    func loadArtist() {
+        progessBar.startAnimating()
+        progessBar.isHidden = false
+        
+        ApiClient.shared.getAllArtists { result in
+            DispatchQueue.main.async {
+                self.progessBar.stopAnimating()
+                self.progessBar.isHidden = true
+                
+                switch result {
+                case .success(let artists):
+                    self.listArtist = artists
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching genres: \(error)")
+                }
+            }
+        }
     }
     
 }
@@ -56,6 +83,8 @@ extension ArtistTableViewController: UITableViewDelegate {
         if segue.identifier == "showAllMusicArtist" {
             if let destinationVC = segue.destination as? ListTableViewController {
                 destinationVC.listLabelText = selectedArtist?.name
+                destinationVC.listType = "artist"
+                destinationVC.listTypeId = selectedArtist?.id
             }
         }
     }

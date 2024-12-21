@@ -1,15 +1,8 @@
-import UIKit
+import Foundation
 
-
-struct Country {
-    let image: UIImage
-    let label: String
+struct Country: Codable {
+    let id: Int
+    let name: String
+    let created_at: String
+    let image: String?
 }
-
-var listCountry:[Country] = [
-    Country(image: UIImage(named: "flag_kaz") ?? UIImage(), label: "Kaz"),
-    Country(image: UIImage(named: "flag_kaz") ?? UIImage(), label: "Kaz2"),
-    Country(image: UIImage(named: "flag_kaz") ?? UIImage(), label: "Kaz3"),
-    Country(image: UIImage(named: "flag_kaz") ?? UIImage(), label: "Kaz4"),
-    Country(image: UIImage(named: "flag_kaz") ?? UIImage(), label: "Kaz5"),
-]

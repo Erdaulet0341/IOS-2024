@@ -2,6 +2,9 @@ import UIKit
 
 class AllPodcasts: UIViewController {
     
+    var listPodcast:[Podcast] = []
+    var progessBar: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     private var selectedPodcast: Podcast?
     
@@ -10,6 +13,11 @@ class AllPodcasts: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        progessBar = UIActivityIndicatorView(style: .large)
+        progessBar.center = view.center
+        progessBar.hidesWhenStopped = true
+        view.addSubview(progessBar)
+        
         tableView.separatorColor = UIColor.clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -17,18 +25,40 @@ class AllPodcasts: UIViewController {
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
         backButton.addGestureRecognizer(tapGesture)
+        
+        loadPodcast()
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         dismiss(animated: true)
     }
+    
+    func loadPodcast() {
+        progessBar.startAnimating()
+        progessBar.isHidden = false
+        
+        ApiClient.shared.getAllPodcasts { result in
+            DispatchQueue.main.async {
+                self.progessBar.stopAnimating()
+                self.progessBar.isHidden = true
+                
+                switch result {
+                case .success(let podcast):
+                    self.listPodcast = podcast
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("Error fetching podcast: \(error)")
+                }
+            }
+        }
+    }
+    
     
 }
 
 extension AllPodcasts: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 320
+        return 305
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -45,7 +75,7 @@ extension AllPodcasts: UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPodcastDetails" {
             if let destinationVC = segue.destination as? PodcastDetail {
-                destinationVC.nameLabelText = selectedPodcast?.label
+                destinationVC.podcast = selectedPodcast
             }
         }
     }

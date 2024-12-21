@@ -1,15 +1,11 @@
-import UIKit
+import Foundation
 
-struct Album {
-    let image: UIImage
-    let label: String
+struct Album: Codable {
+    let id: Int
+    let title: String
+    let artist: Artist
+    let release_date: String
+    let cover_image: String?
+    let description: String?
+    let created_at: String
 }
-
-var listAlbum:[Album] = [
-    Album(image: UIImage(named: "peep-48 1") ?? UIImage(), label: "Album1"),
-    Album(image: UIImage(named: "peep-48 1") ?? UIImage(), label: "Album2"),
-    Album(image: UIImage(named: "peep-48 1") ?? UIImage(), label: "Album3"),
-    Album(image: UIImage(named: "peep-48 1") ?? UIImage(), label: "Album4"),
-    Album(image: UIImage(named: "peep-48 1") ?? UIImage(), label: "Album5"),
-
-]

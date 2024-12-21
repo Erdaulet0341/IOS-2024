@@ -2,7 +2,7 @@ import UIKit
 import WebKit
 
 class PodcastDetail: UIViewController {
-    var nameLabelText: String?
+    var podcast: Podcast?
     
     @IBOutlet weak var backButton: UIImageView!
     @IBOutlet weak var namePodcast: UILabel!
@@ -11,8 +11,13 @@ class PodcastDetail: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        namePodcast.text = nameLabelText
-        playYouTubeVideo(url: "https://www.youtube.com/watch?v=U1A2ZrXEwxE")
+        
+        guard let podcast = podcast else {
+            return
+        }
+        
+        namePodcast.text = podcast.title
+        playYouTubeVideo(url: podcast.video_url)
         
         backButton.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
@@ -27,7 +32,6 @@ class PodcastDetail: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        print("Clicked")
         dismiss(animated: true)
     }
 }

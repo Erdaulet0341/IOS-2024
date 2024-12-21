@@ -1,15 +1,11 @@
-import UIKit
+import Foundation
 
-struct Podcast {
-    let image: UIImage
-    let label: String
+struct Podcast: Codable {
+    let id: Int
+    let title: String
+    let video_url: String
+    let release_date: String
+    let cover_image: String?
+    let description: String?
+    let created_at: String
 }
-
-var listPodcast:[Podcast] = [
-    Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast1"),
-    Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast2"),
-    Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast3"),
-    Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast4"),
-    Podcast(image: UIImage(named: "peep-48") ?? UIImage(), label: "Podcast5"),
-
-]
