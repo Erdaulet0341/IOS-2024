@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UISearchBarDelegate {
     
     var listCountry:[Country] = []
     var listAlbum:[Album] = []
@@ -34,6 +34,27 @@ class HomeViewController: UIViewController {
         loadCountry()
         loadAlbum()
         loadPodcast()
+    }
+    
+    private func setupUI() {
+        imageRight.layer.cornerRadius = cornerRadius
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "Backgroud")
+        backgroundImage.contentMode = .scaleAspectFill
+        view.insertSubview(backgroundImage, at: 0)
+        
+        searchBar.layer.cornerRadius = 20
+        searchBar.searchTextField.layer.cornerRadius = 10
+        searchBar.searchTextField.layer.masksToBounds = true
+        searchBar.layer.applyShadow(color: UIColor.black, offset: searchBarShadowOffset, opacity: searchBarShadowOpacity, radius: searchBarShadowRadius)
+        
+        searchBar.delegate = self
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        performSegue(withIdentifier: "goSearch", sender: nil)
+        return false // Prevent keyboard from appearing
     }
     
     private func setupProgressBar() {
@@ -110,20 +131,6 @@ class HomeViewController: UIViewController {
             progressBar.stopAnimating()
             progressBar.isHidden = true
         }
-    }
-
-    private func setupUI() {
-        imageRight.layer.cornerRadius = cornerRadius
-        
-        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImage.image = UIImage(named: "Backgroud")
-        backgroundImage.contentMode = .scaleAspectFill
-        view.insertSubview(backgroundImage, at: 0)
-        
-        searchBar.layer.cornerRadius = 20
-        searchBar.searchTextField.layer.cornerRadius = 10
-        searchBar.searchTextField.layer.masksToBounds = true
-        searchBar.layer.applyShadow(color: UIColor.black, offset: searchBarShadowOffset, opacity: searchBarShadowOpacity, radius: searchBarShadowRadius)
     }
     
     private func setupGestures() {

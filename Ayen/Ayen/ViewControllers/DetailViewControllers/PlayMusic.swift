@@ -84,19 +84,11 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
             return
         }
 
-        DispatchQueue.global().async { [weak self] in
-            do {
-                let audioData = try Data(contentsOf: url)
-                self?.audioPlayer = try AVAudioPlayer(data: audioData)
-                self?.audioPlayer?.delegate = self // Set the delegate to handle audio player events
-                self?.audioPlayer?.prepareToPlay()
-                DispatchQueue.main.async {
-                    self?.playMusic()
-                }
-            } catch {
-                print("Error setting up audio player: \(error)")
-            }
-        }
+        musicProgress.progress = 0
+
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        let downloadTask = session.downloadTask(with: url)
+        downloadTask.resume()
     }
 
 
@@ -241,6 +233,25 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
             if let showLyricsVC = segue.destination as? ShowLyrics {
                 showLyricsVC.track = currentTrack
             }
+        }
+    }
+}
+
+extension PlayMusic: URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        musicProgress.setProgress(progress, animated: true)
+    }
+
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        do {
+            let data = try Data(contentsOf: location)
+            self.audioPlayer = try AVAudioPlayer(data: data)
+            self.audioPlayer?.delegate = self
+            self.audioPlayer?.prepareToPlay()
+            self.playMusic()
+        } catch {
+            print("Error preparing audio player: \(error)")
         }
     }
 }
