@@ -67,8 +67,6 @@ The backend is powered by a robust API, with endpoints encapsulated in the `ApiC
 To integrate your API:  
 - Update the base URL and endpoints in `ApiClient.swift`.
 
-Here's a polished and well-structured README file for your project:
-
 ---
 
 ## 🖼 Screenshots  
