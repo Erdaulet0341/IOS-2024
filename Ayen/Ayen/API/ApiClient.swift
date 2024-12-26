@@ -4,7 +4,7 @@ class ApiClient {
     static let shared = ApiClient()
     private init() {}
 
-    private let baseUrl = "https://1cba-178-88-42-223.ngrok-free.app/"
+    private let baseUrl = "https://exotic-haddock-inviting.ngrok-free.app/"
 
     private func request<T: Decodable>(
         endpoint: String,

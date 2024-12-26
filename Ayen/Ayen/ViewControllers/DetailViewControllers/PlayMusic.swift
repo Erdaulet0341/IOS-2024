@@ -12,6 +12,7 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
     var audioPlayer: AVAudioPlayer?
     var progressUpdateTimer: Timer?
     var isPlaying = false
+    var currentDownloadTask: URLSessionDownloadTask?
 
     @IBOutlet weak var backButton: UIImageView!
     @IBOutlet weak var coverImage: UIImageView!
@@ -47,6 +48,8 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
         
         audioPlayer?.stop()
         stopProgressTimer()
+        currentDownloadTask?.cancel()
+        currentDownloadTask = nil
         isPlaying = false
     }
     
@@ -79,16 +82,44 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
     }
 
     private func setupAudioPlayer() {
-        guard let track = currentTrack, let url = URL(string: track.audio_file) else {
-            print("Error: Invalid audio file URL")
+        guard let track = currentTrack else {
+            print("Error: Invalid track")
             return
         }
+        
+        let fileURL = MusicCache.shared.fileURL(for: track.id)
+        
+        currentDownloadTask?.cancel()
+        currentDownloadTask = nil
+        
+        if MusicCache.shared.fileExists(for: track.id) {
+            loadAudioFromFile(url: fileURL)
+        } else {
+            guard let url = URL(string: track.audio_file) else {
+                print("Error: Invalid audio file URL")
+                return
+            }
+            
+            musicProgress.progress = 0
+            
+            let session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue.main)
+            let downloadTask = session.downloadTask(with: url)
+            self.currentDownloadTask = downloadTask
+            downloadTask.resume()
+        }
+    }
 
-        musicProgress.progress = 0
 
-        let session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        let downloadTask = session.downloadTask(with: url)
-        downloadTask.resume()
+    private func loadAudioFromFile(url: URL) {
+        do {
+            let data = try Data(contentsOf: url)
+            self.audioPlayer = try AVAudioPlayer(data: data)
+            self.audioPlayer?.delegate = self
+            self.audioPlayer?.prepareToPlay()
+            self.playMusic()
+        } catch {
+            print("Error preparing audio player: \(error)")
+        }
     }
 
 
@@ -170,6 +201,8 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
         animateView(previousbutton)
         pauseMusic()
         musicProgress.progress = 0
+        currentDownloadTask?.cancel()
+        currentDownloadTask = nil
         if let currentIndex = listTrack.firstIndex(where: { $0.id == currentTrack?.id }) {
             let previousIndex = (currentIndex - 1 + listTrack.count) % listTrack.count
             currentTrack = listTrack[previousIndex]
@@ -182,6 +215,8 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
         animateView(nextButton)
         pauseMusic()
         musicProgress.progress = 0
+        currentDownloadTask?.cancel()
+        currentDownloadTask = nil
         if let currentIndex = listTrack.firstIndex(where: { $0.id == currentTrack?.id }) {
             let nextIndex = (currentIndex + 1) % listTrack.count
             currentTrack = listTrack[nextIndex]
@@ -220,9 +255,13 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
     
     @objc private func backTapped() {
         animateView(backButton)
-        pauseMusic()
+        audioPlayer?.stop()
+        stopProgressTimer()
+        currentDownloadTask?.cancel()
+        currentDownloadTask = nil
         dismiss(animated: true)
     }
+
     
     @IBAction func viewLyricsButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "showLyrics", sender: self)
@@ -239,19 +278,28 @@ class PlayMusic: UIViewController, AVAudioPlayerDelegate {
 
 extension PlayMusic: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        guard totalBytesExpectedToWrite > 0 else {
+            print("Cannot calculate progress: totalBytesExpectedToWrite is unknown")
+            return
+        }
+        
         let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-        musicProgress.setProgress(progress, animated: true)
+        
+        DispatchQueue.main.async {
+            self.musicProgress.setProgress(progress, animated: true)
+        }
     }
 
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        guard let track = currentTrack else { return }
+        
+        let fileURL = MusicCache.shared.fileURL(for: track.id)
+        
         do {
-            let data = try Data(contentsOf: location)
-            self.audioPlayer = try AVAudioPlayer(data: data)
-            self.audioPlayer?.delegate = self
-            self.audioPlayer?.prepareToPlay()
-            self.playMusic()
+            try MusicCache.shared.saveFile(from: location, for: track.id)
+            loadAudioFromFile(url: fileURL)
         } catch {
-            print("Error preparing audio player: \(error)")
+            print("Error saving or loading file: \(error)")
         }
     }
 }

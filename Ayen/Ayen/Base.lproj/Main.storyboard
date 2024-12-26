@@ -233,15 +233,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" searchBarStyle="minimal" placeholder="Seach for music or podcast" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1w-IN-EVW">
-                                <rect key="frame" x="16" y="178.66666666666666" width="370" height="44"/>
+                                <rect key="frame" x="16" y="178.66666666666666" width="386" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="tf1-3I-Toh"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-LW-CND">
-                                <rect key="frame" x="16" y="252" width="361" height="622"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-LW-CND">
+                                <rect key="frame" x="16" y="242.66666666666669" width="386" height="631.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Podcasts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nX9-Cr-DNW">
                                         <rect key="frame" x="0.0" y="0.0" width="78" height="35"/>
@@ -463,11 +463,13 @@
                                     <constraint firstItem="fOJ-bo-eu4" firstAttribute="top" secondItem="QGV-vR-3E0" secondAttribute="bottom" constant="15" id="HL4-Lw-Ch6"/>
                                     <constraint firstItem="6Ci-Sy-jTB" firstAttribute="top" secondItem="Lgr-tT-rrQ" secondAttribute="bottom" constant="150" id="JWZ-hs-HJ8"/>
                                     <constraint firstItem="eM8-wP-rre" firstAttribute="top" secondItem="EoF-Ub-038" secondAttribute="bottom" constant="25" id="M1r-zx-XqG"/>
+                                    <constraint firstAttribute="trailing" secondItem="QGV-vR-3E0" secondAttribute="trailing" id="Nsy-fO-jwJ"/>
                                     <constraint firstItem="EoF-Ub-038" firstAttribute="leading" secondItem="BAj-is-yb8" secondAttribute="leading" id="O0F-oB-vgZ"/>
                                     <constraint firstItem="EoF-Ub-038" firstAttribute="top" secondItem="fOJ-bo-eu4" secondAttribute="bottom" constant="10" id="SHy-Pm-0yn"/>
                                     <constraint firstItem="nX9-Cr-DNW" firstAttribute="top" secondItem="BAj-is-yb8" secondAttribute="top" id="VuH-Cv-CPe"/>
                                     <constraint firstItem="Lgr-tT-rrQ" firstAttribute="top" secondItem="nX9-Cr-DNW" secondAttribute="bottom" constant="160" id="W6F-YP-W89"/>
                                     <constraint firstItem="QGV-vR-3E0" firstAttribute="trailing" secondItem="BAj-is-yb8" secondAttribute="trailing" id="X0P-8a-dZs"/>
+                                    <constraint firstItem="U15-vx-N1q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Ci-Sy-jTB" secondAttribute="trailing" constant="8" symbolic="YES" id="ZoS-2j-cuK"/>
                                     <constraint firstItem="fOJ-bo-eu4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Lgr-tT-rrQ" secondAttribute="trailing" constant="8" symbolic="YES" id="a0Z-Gg-pct"/>
                                     <constraint firstItem="QGV-vR-3E0" firstAttribute="leading" secondItem="BAj-is-yb8" secondAttribute="leading" id="cYY-ct-Mcc"/>
                                     <constraint firstItem="BAj-is-yb8" firstAttribute="trailing" secondItem="U15-vx-N1q" secondAttribute="trailing" constant="16" id="djN-qH-L0S"/>
@@ -478,6 +480,7 @@
                                     <constraint firstItem="yzs-Lw-xle" firstAttribute="top" secondItem="BAj-is-yb8" secondAttribute="top" constant="10" id="trT-uo-86u"/>
                                     <constraint firstItem="yzs-Lw-xle" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nX9-Cr-DNW" secondAttribute="trailing" constant="8" symbolic="YES" id="uqX-6R-438"/>
                                     <constraint firstItem="BAj-is-yb8" firstAttribute="trailing" secondItem="fOJ-bo-eu4" secondAttribute="trailing" constant="16" id="wnM-G1-gk4"/>
+                                    <constraint firstAttribute="bottom" secondItem="eM8-wP-rre" secondAttribute="bottom" constant="66" id="xc3-eu-d02"/>
                                     <constraint firstItem="BAj-is-yb8" firstAttribute="trailing" secondItem="eM8-wP-rre" secondAttribute="trailing" id="y5M-Lh-gfZ"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Wfl-O9-09c"/>
@@ -502,14 +505,14 @@
                             <constraint firstItem="mlB-LW-CND" firstAttribute="top" secondItem="h1w-IN-EVW" secondAttribute="bottom" constant="20" id="Bzd-nk-BDB"/>
                             <constraint firstItem="yBy-OI-9Wc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5hF-VJ-8Zy" secondAttribute="trailing" constant="8" symbolic="YES" id="Cx2-zh-BA5"/>
                             <constraint firstItem="5hF-VJ-8Zy" firstAttribute="leading" secondItem="h5c-92-FAf" secondAttribute="leading" constant="16" id="E98-0N-xWg"/>
-                            <constraint firstItem="h5c-92-FAf" firstAttribute="trailing" secondItem="h1w-IN-EVW" secondAttribute="trailing" constant="16" id="Gc1-Ne-iVF"/>
-                            <constraint firstItem="h5c-92-FAf" firstAttribute="trailing" secondItem="mlB-LW-CND" secondAttribute="trailing" id="LFE-II-7Ih"/>
+                            <constraint firstItem="h5c-92-FAf" firstAttribute="trailing" secondItem="mlB-LW-CND" secondAttribute="trailing" id="IkZ-Hr-XcW"/>
                             <constraint firstItem="3le-op-gl9" firstAttribute="leading" secondItem="h5c-92-FAf" secondAttribute="leading" constant="16" id="Pb2-Gw-qPW"/>
                             <constraint firstItem="h5c-92-FAf" firstAttribute="trailing" secondItem="yBy-OI-9Wc" secondAttribute="trailing" constant="25" id="Ru9-SH-oTz"/>
                             <constraint firstItem="3le-op-gl9" firstAttribute="top" secondItem="5hF-VJ-8Zy" secondAttribute="bottom" constant="16" id="TF2-31-op7"/>
                             <constraint firstItem="yBy-OI-9Wc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3le-op-gl9" secondAttribute="trailing" constant="8" symbolic="YES" id="cAf-O8-eIP"/>
                             <constraint firstAttribute="bottom" secondItem="mlB-LW-CND" secondAttribute="bottom" id="gA4-Bo-5FF"/>
                             <constraint firstItem="yBy-OI-9Wc" firstAttribute="top" secondItem="h5c-92-FAf" secondAttribute="top" constant="25" id="jtJ-5D-lWK"/>
+                            <constraint firstItem="mlB-LW-CND" firstAttribute="trailing" secondItem="h1w-IN-EVW" secondAttribute="trailing" id="qaa-NN-rt3"/>
                             <constraint firstItem="mlB-LW-CND" firstAttribute="leading" secondItem="h5c-92-FAf" secondAttribute="leading" constant="16" id="tZi-T9-9xs"/>
                         </constraints>
                     </view>
@@ -544,7 +547,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATq-df-jEf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2296" y="-222"/>
+            <point key="canvasLocation" x="-2297.0149253731342" y="-222.42562929061782"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="O6D-cH-1qf">
@@ -1343,24 +1346,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7l-l7-MfU">
                                 <rect key="frame" x="20" y="190" width="362" height="598"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OG5-Eb-9Xz">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="No Lyrics" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OG5-Eb-9Xz">
                                         <rect key="frame" x="0.0" y="0.0" width="362" height="598"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">I wonder if I'm being real
-Do I speak my truth or do I filter how I feel?
-I wonder, wouldn't it be nice
-To live inside a world that isn't black and white?
-I wonder what it's like to be my friends
-Hope that they don't think I'll forget about them
-I wonder I wonder
-
-Right before I close my eyes
-The only thing that's on my mind
-Been dreamin' that you feel it too
-I wonder what it's like to be loved by you
-Yeah
-I wonder what it's like
-I wonder what it's like to be loved by</string>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
